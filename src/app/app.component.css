@@ -1,0 +1,16 @@
+app-babylon-viewer {
+  line-height: 0;
+}
+
+@media screen and (min-width: 768px) {
+  app-appearance-customizer {
+    width: 28em;
+  }
+}
+
+.version-number {
+  color: white;
+  position: fixed;
+  left: .5em;
+  bottom: .5em;
+}

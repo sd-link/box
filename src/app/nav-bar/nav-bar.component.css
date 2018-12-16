@@ -1,0 +1,13 @@
+.navbar-nav * {
+  vertical-align: middle;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-item .icon {
+  font-size: 2em;
+}

@@ -1,0 +1,29 @@
+<canvas #renderTarget class="w-100 h-100 babylon-viewer" touch-action="none" (contextmenu)="false;"></canvas>
+<div class="helper-text" [style.color]="helperTextColor">{{helperText | translate}}</div>
+<!--<div class="controls-container" [style.transform]="controlsTransform" *ngIf="showButtons()">
+  <div class="top section">
+    <div class="wrapper">
+      <button type="button" class="btn btn-light p-0" touch-action="none" (pointerover)="helperText = 'COMPLETE';" (pointerout)="helperText = '';" (click)="deselect(true)"><i class="material-icons large-icon">check_box</i></button>
+    </div>
+  </div>
+  <div class="bottom section">
+    <div class="wrapper">
+      <button type="button" class="btn btn-light p-0" touch-action="none" (pointerover)="helperText = 'DELETE';" (pointerout)="helperText = '';" (click)="deleteSelectedModel()"><i class="material-icons large-icon">delete</i></button>
+    </div>
+  </div>
+  <div class="left section">
+    <div class="wrapper">
+      <button type="button" class="btn btn-light p-0" touch-action="none" (pointerover)="helperText = 'ROTATE CLOCKWISE';" (pointerout)="helperText = '';" (click)="rotateSelectedModel(90)"><i class="material-icons large-icon flip-horizontal">rotate_90_degrees_ccw</i></button>
+    </div>
+  </div>
+  <div class="right section">
+    <div class="wrapper">
+      <button type="button" class="btn btn-light p-0" touch-action="none" (pointerover)="helperText = 'ROTATE COUNTER-CLOCKWISE';" (pointerout)="helperText = '';" (click)="rotateSelectedModel(-90)"><i class="material-icons large-icon">rotate_90_degrees_ccw</i></button>
+    </div>
+  </div>
+  <div class="center section">
+    <div class="wrapper">
+      <button type="button" class="btn btn-light p-0" touch-action="none" (pointerover)="helperText = 'REPOSITION';" (pointerout)="helperText = '';" (pointerdown)="pickUpSelectedModel($event)"><i class="material-icons large-icon">open_with</i></button>
+    </div>
+  </div>
+</div>-->

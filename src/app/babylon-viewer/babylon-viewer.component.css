@@ -1,0 +1,72 @@
+.babylon-viewer {
+  min-height: 60vh;
+}
+
+.helper-text {
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  color: #000000;
+  line-height: 1.25rem;
+  font-size: 1.0rem;
+  text-align: center;
+}
+
+.controls-container {
+  position: absolute;
+  top: -4rem;
+  left: -4rem;
+  display: inline-block;
+  width: 8rem;
+  height: 8rem;
+  overflow: visible;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 3px solid black;
+}
+
+.controls-container .section {
+  position: absolute;
+  text-align: center;
+  overflow: visible;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.controls-container .section .wrapper {
+  display: inline-block;
+  transform: translate(-60%, -60%);
+}
+
+.controls-container .section.top {
+  transform: translate(4rem, 0);
+}
+
+.controls-container .section.bottom {
+  transform: translate(4rem, 8rem);
+}
+
+.controls-container .section.left {
+  transform: translate(0, 4rem);
+}
+
+.controls-container .section.right {
+  transform: translate(8rem, 4rem);
+}
+
+.controls-container .section.center {
+  transform: translate(4rem, 4rem);
+}
+
+.controls-container .btn {
+  line-height: 0;
+}
+
+.large-icon {
+  font-size: 2rem;
+}
+
+.flip-horizontal {
+  transform: scaleX(-1);
+}

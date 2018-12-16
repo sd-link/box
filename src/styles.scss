@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+app-root {
+  min-height: 100vh;
+}
+
+app-babylon-viewer {
+  overflow: hidden;
+}
+
+app-appearance-customizer {
+  background-color: #EEEEEE;
+  
+  ul.nav-tabs .nav-link {
+    color: #888888;
+    font-weight: bold;
+    text-align: center;
+    border: 0;
+    padding: 0.125rem 0.25rem;
+
+    &.active {
+      background-color: transparent;
+      color: #FFFFFF;
+    }
+  }
+
+  .panel-heading {
+    cursor: pointer;
+  }
+
+  tabset li.disabled {
+    opacity: 0.5;
+  }
+}
+
+.material-icons {
+  line-height: 1;
+}
+
+.md-inherit {
+  font-size: inherit;
+}
+
+@media screen and (min-width: 768px) {
+  app-appearance-customizer ul.nav-tabs .nav-link {
+    padding: 0.5rem 0.5rem;
+  }
+}

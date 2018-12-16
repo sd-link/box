@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <a class="navbar-brand mr-auto" href="https://mbk12.de/">MBK12.COM</a>
+  <select [(ngModel)]="chosenLanguage" (change)="languageChosen()">
+    <option *ngFor="let lang of languages;">{{lang}}</option>
+  </select>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" title="Restart" href="#" (pointerover)="helperTextService.setText('RESTART')" (pointerout)="helperTextService.clearText()" (click)="reset()"><i class="material-icons icon">cached</i></a>
+    </li>
+    <li class="nav-item">
+      <form [action]="submitURL" method="post" (ngSubmit)="onSubmit($event)">
+        <input type="hidden" name="productBase64JPEG" [value]="currentProductImage()">
+        <ng-template ngFor let-item [ngForOf]="activeModels()" let-i="index">
+          <input type="hidden" name="products[{{i}}][name]" [value]="item.name">
+          <input type="hidden" name="products[{{i}}][color]" [value]="item.color">
+          <input type="hidden" name="products[{{i}}][width]" *ngIf="item.creationData.scaling" [value]="item.creationData.scaling.scale.x">
+          <input type="hidden" name="products[{{i}}][depth]" *ngIf="item.creationData.scaling" [value]="item.creationData.scaling.scale.y">
+          <input type="hidden" name="products[{{i}}][height]" *ngIf="item.creationData.scaling" [value]="item.creationData.scaling.scale.z">
+        </ng-template>
+        <button type="submit" class="nav-link" title="Cart" (pointerover)="helperTextService.setText('GO TO CART')" (pointerout)="helperTextService.clearText()"><i class="material-icons icon">shopping_cart</i></button>
+      </form>
+    </li>
+  </ul>
+</nav>
