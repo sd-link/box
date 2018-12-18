@@ -1,46 +1,34 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {InlineSVGModule} from 'ng-inline-svg';
 
-import { AppComponent } from './app.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { BabylonViewerComponent } from './babylon-viewer/babylon-viewer.component';
-import { AppearanceCustomizerComponent } from './appearance-customizer/appearance-customizer.component';
-
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http);
-}
+import {AppComponent} from './app.component';
+import {BabylonViewerComponent} from './babylon-viewer/babylon-viewer.component';
+import {NavBarComponent} from './nav-bar/nav-bar.component';
+import {AppearanceControlsComponent} from './appearance-controls/appearance-controls.component';
+import {ShareModalComponent} from './share-modal/share-modal.component';
+import {LoginModalComponent} from './login-modal/login-modal.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavBarComponent,
-    BabylonViewerComponent,
-    AppearanceCustomizerComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    TabsModule.forRoot(),
-    AccordionModule.forRoot(),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        BabylonViewerComponent,
+        NavBarComponent,
+        AppearanceControlsComponent,
+        ShareModalComponent,
+        LoginModalComponent
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        ModalModule.forRoot(),
+        InlineSVGModule.forRoot()
+    ],
+    providers: [],
+    entryComponents: [LoginModalComponent, ShareModalComponent],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

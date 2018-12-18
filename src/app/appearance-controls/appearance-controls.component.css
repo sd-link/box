@@ -1,0 +1,100 @@
+.gun-selector a *,
+.weapon-option a * {
+    vertical-align: middle;
+}
+
+.gun-selector a {
+    margin: auto 0;
+}
+
+.gun-selector .material-icons {
+    font-size: 2em;
+}
+
+.weapon-icon {
+    display: inline-block;
+    width: 8em;
+}
+
+.weapon-name {
+    display: inline-block;
+    width: 8em;
+}
+
+.section-selector {
+    background-color: #DADADA;
+    position: relative;
+}
+
+.vertical-divider {
+    display: inline-block;
+    height: auto;
+    margin: 1em 0;
+    border: 1px solid;
+}
+
+.section-icon {
+    height: 2em;
+    min-width: 2em;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.all-options {
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    transition: left 0.4s ease-in-out;
+}
+
+.all-options.put-away {
+    left: -100%;
+}
+
+.options-container {
+    white-space: nowrap;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+
+.section-option {
+    display: inline-block;
+    text-align: center;
+    height: 4em;
+}
+
+.section-option .display {
+    background-clip: border-box;
+    background-origin: border-box;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 4em;
+    height: 100%;
+}
+
+.section-option .display:hover,
+.section-option.active .display {
+    border: 2px solid #EC121F;
+}
+
+.section-option.first-of-set:not(:first-child) {
+    margin-left: 15px;
+}
+
+.undo-button {
+    position: absolute;
+    color: white;
+    top: 25%;
+    left: 40%;
+    font-weight: bold;
+}
+
+.arrow-controls {
+    font-size: 2.5em;
+    line-height: 0;
+}
+
+.arrow-controls .disabled {
+    color: darkgray;
+}

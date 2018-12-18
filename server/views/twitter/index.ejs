@@ -1,0 +1,19 @@
+<% if(user){ %>
+  <p> Hello <%= user.username %> </p>
+  <img src='<%= user.photos[0].value %>'></img>
+  <a href='/twitter/tweet'>Tweet something</a>
+
+<% }  else{ %>
+
+<button onClick="openWindow()">Click me</button>
+  <!--<a href='/twitter/login'>Login using twitter!</a>-->
+ <% } %>
+
+
+<script>
+function openWindow() {
+  window.open('/twitter/login');
+}
+
+
+</script>

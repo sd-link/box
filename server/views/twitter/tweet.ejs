@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style>
+textarea.form-control {
+    height: 100;
+    max-width: 512;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+video {
+    margin: 1em;
+}
+
+
+
+.overlay-parent{
+    position:relative !important;
+
+
+}
+
+.overlay
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.85);
+    z-index: 9999;
+    color: grey;
+    display: inline-block;
+
+
+}
+
+.overlay-text{
+    text-align: center;
+    font-size: 3em;
+    padding: 2em;
+}
+
+.hidden{
+display:none;
+}
+
+
+</style>
+
+<script>
+function onSubmit(){
+
+document.querySelector("#overlay").className="overlay overlay-text"
+
+}
+</script>
+
+
+<% if(user){ %>
+
+<div id=overlay class="hidden">Tweeting...</div>
+
+<div class="text-center">
+ <video  width="256" height="256" controls autoplay loop muted src="<%= video.url %>" type="video/mp4"></video>
+
+     <form method='POST' action='/twitter/tweet/send' rows=5>
+        <div class='form-group'>
+            <textarea id=tweet class=form-control type='text'  placeholder='Enter your Tweet here' maxlength = 200  name='tweet'>#pewpewcustoms Create your own miniature figures @</textarea>
+        </div>
+        <button onClick="onSubmit()" class="btn btn-primary" type='submit'> Tweet</button>
+     </form>
+</div>
+<% } else{ %>
+  <a href='/twitter/login'>Login using twitter!</a>
+<% } %>
+

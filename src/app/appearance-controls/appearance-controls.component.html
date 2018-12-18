@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <div class="row section-selector">
+        <div class="col-auto gun-selector d-flex">
+            <a href="#" (click)="toggleChoices($event)">
+                <i class="material-icons">{{hideWeaponChoices ? 'expand_less' : 'expand_more'}}</i>
+                <div class="weapon-icon contain-svg" [inlineSVG]="chosenWeapon.svgPath"></div>
+                <div class="p-2 weapon-name">{{chosenWeapon.name}}</div>
+            </a>
+        </div>
+        <div class="vertical-divider"></div>
+        <div class="mt-2 mb-2 col-auto" *ngFor="let section of allSections">
+            <a [class.active]="section == activeSection()" href="#" (click)="changeSection($event, section)">
+                <div class="section-icon contain-svg" [inlineSVG]="section.svgPath"></div>
+                <div>{{section.name}}</div>
+            </a>
+        </div>
+        <div class="col-auto all-options" [class.put-away]="hideWeaponChoices">
+            <div class="weapon-option" *ngFor="let weapon of customizationData.weapons">
+                <a class="d-inline-block" href="#" [class.active]="weapon == chosenWeapon"
+                   (click)="chooseWeapon($event, weapon)">
+                    <div class="weapon-icon contain-svg" [inlineSVG]="weapon.svgPath"></div>
+                    <div class="p-2 weapon-name">{{weapon.name}}</div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row option-browser">
+        <div class="mt-3 mb-3 col-auto" *ngIf="activeSection().globalReset">
+            <!-- [class.active]="activeTracking().resetActive" -->
+            <a class="section-option" href="#" title="undo"
+               (click)="resetPressed($event)">
+                <div class="display" [style.opacity]="(undoManagerLimit()+3)/(9+3)"
+                     style="background-image: url('assets/img/nav-icons/arrow.png');">
+                    <span class="undo-button">{{ undoManagerLimit() }}</span>
+                </div>
+            </a>
+            <!-- <a class="section-option" href="#" title="redo"
+                (click)="redoPressed($event)">
+               <div class="display" style="background-image: url('assets/img/nav-icons/arrow.png');"></div>
+             </a> -->
+        </div>
+        <div #optionsContainer class="mt-3 mb-3 col options-container">
+            <ng-container *ngFor="let optionGroup of activeSection().optionGroups">
+                <a class="section-option" href="#"
+                   *ngFor="let option of optionGroup.options; let isFirst = first"
+                   [class.first-of-set]="isFirst"
+                   [class.active]=" (option === selectedOption(optionGroup))"
+                   (click)="optionClicked($event, optionGroup, option)">
+                    <div class="display" [style.backgroundColor]="option.displayColor || ''"
+                         [style.backgroundImage]="option.displayImg ? ('url(\'' + option.displayImg + '\')') : ''"></div>
+                </a>
+            </ng-container>
+        </div>
+        <div class="mt-3 mb-3 col-auto arrow-controls d-flex">
+            <a class="m-auto" href="#"
+               (click)="scrollOptionsLeft($event)"
+               [class.disabled]="optionsContainer.scrollLeft === 0">
+                <i class="material-icons md-inherit">arrow_left</i>
+            </a>
+            <a class="m-auto" href="#"
+               (click)="scrollOptionsRight($event)"
+               [class.disabled]="(optionsContainer.scrollLeft + optionsContainer.clientWidth) >= optionsContainer.scrollWidth">
+                <i class="material-icons md-inherit">arrow_right</i>
+            </a>
+        </div>
+    </div>
+</div>

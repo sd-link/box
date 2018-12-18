@@ -1,23 +1,10 @@
-# ModularStorage
+# GunCustomizer
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.1.
 
-## Release Notes
+## Installation
 
-### V3
-
-- object placement now possible across multiple grids
-- several minor tweaks and fixes regarding object placement
-- error message shown instead of creating object when all places are taken
-- fixed khaki color
-- new feet options added - steel frames with different dimensions and two trolleys with multiple trays
-- fixed model loading not being able to handle some cases
-- added colored wood options for bases and trays
-- added management of maximum height for grid placement - too tall objects cannot be placed on grids with limited height
-- tweaked the colors to not look so pale, coloring is now achieved using separate textures for the color options
-- added support for translations, a language switcher dropdown at the top bar and a preliminary German translation
-- fixed tab layout issue
-- added version number in the bottom left corner
+[Installation.md](Installation.md)
 
 ## Development server
 

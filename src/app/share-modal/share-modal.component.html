@@ -1,0 +1,102 @@
+<div class="header-color header-shadow p-1" xmlns="http://www.w3.org/1999/html">
+    <h4 class="text-center">SHARE</h4>
+</div>
+<div class="modal-body pl-5 pr-5">
+
+    <!--
+     <nav aria-label="breadcrumb">
+         <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a href="#">Preset</a></li>
+             <li class="breadcrumb-item"><a href="#">Share</a></li>
+             <li class="breadcrumb-item active" aria-current="page">Etc</li>
+         </ol>
+     </nav>
+     -->
+    <!-- <input type="range" min="0" max="100" value="90">  for pitch-->
+
+    <div [style.display]="error ? 'block' : 'none'" class="alert alert-danger">
+        <strong>Error: </strong> {{error}}
+    </div>
+
+
+    <div class="text-center" [style.display]="progress? 'block' : 'none'">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" [style.width]="progressPercentage +'%'"
+                 [attr.aria-valuenow]="progressPercentage" aria-valuemin="0" aria-valuemax="100">{{ progressPercentage
+                }}%
+            </div>
+        </div>
+
+        <span>{{ progressType }} </span>
+    </div>
+
+    <div #canvasContainer>
+
+    </div>
+
+
+    <div class="d-flex p-1 pt-4">
+        <div>
+
+            <div class="btn-group btn-group-toggle text-center m-1" data-toggle="buttons">
+                <label class="btn btn-secondary active" (click)="preparePreview(availablePreviews.default)">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Default
+                </label>
+                <label class="btn btn-secondary" (click)="preparePreview(availablePreviews.special)">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> Special
+                </label>
+                <label class="btn btn-secondary" (click)="preparePreview(availablePreviews.basic)">
+                    <input type="radio" name="options" id="option3" autocomplete="off"> Basic
+                </label>
+            </div>
+        </div>
+
+        <div class="ml-auto m-1">
+            <button type="button" class="btn btn-primary" (click)="initVideoExport()">Start</button>
+        </div>
+    </div>
+
+    <div class="d-flex p-1 pt-4">
+        <div class="overlay-parent">
+            <input class="m-1" type="image" (click)="shareWithFacebook()" style="height: 2em;"
+                   src="assets/img/share-ui/Share_FB.png" title="Continue with Facebook"/>
+            <a id="twitter-gif-share"
+               (click)="initTwitterShare()"
+               href="#"
+               data-size="large">
+                <img class="m-1" style="height: 2em;position: relative;top: -1em;"
+                     src="assets/img/share-ui/Share_TW.png" title="Continue with Twitter"/>
+            </a>
+
+
+            <input class="m-1" type="image" (click)="download()" style="height: 2em;"
+                   src="assets/img/share-ui/Save_Icon.png" title="Download"/>
+
+            <div class="overlay" [style.display]="!enableSharingButtons ? 'block' : 'none'" data-toggle="tooltip"
+                 data-placement="top" title="First select an option and click - Start -"></div>
+        </div>
+
+        <div class="ml-auto m-1">
+            <input (click)="close()" type="button" class="btn" value="Cancel">
+        </div>
+
+
+    </div>
+
+
+    <div [style.display]="debug ? 'block' : 'none'">
+
+        <input class="m-1" type="image" (click)="initVideoExport({},false)" style="height: 2em;"
+               src="assets/img/nav-icons/reload-circular-arrow.svg" title="Reload GIF"/>
+        <input class="m-1" type="image"
+               (click)="initVideoExport( {quality: 1, totalFrames: 240, framesPerSecond: 60},false)"
+               style="height: 2em;"
+               src="assets/img/nav-icons/reload-circular-arrow.svg" title="Reload GIF"/>
+
+        <div></div>
+
+
+    </div>
+
+
+</div>

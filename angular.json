@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "modular-storage": {
+    "gun-customizer": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/modular-storage",
+            "outputPath": "dist/gun-customizer",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -50,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "modular-storage:build"
+            "browserTarget": "gun-customizer:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "modular-storage:build:production"
+              "browserTarget": "gun-customizer:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "modular-storage:build"
+            "browserTarget": "gun-customizer:build"
           }
         },
         "test": {
@@ -95,7 +95,7 @@
         }
       }
     },
-    "modular-storage-e2e": {
+    "gun-customizer-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -103,11 +103,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "modular-storage:serve"
+            "devServerTarget": "gun-customizer:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "modular-storage:serve:production"
+              "devServerTarget": "gun-customizer:serve:production"
             }
           }
         },
@@ -123,5 +123,5 @@
       }
     }
   },
-  "defaultProject": "modular-storage"
+  "defaultProject": "gun-customizer"
 }

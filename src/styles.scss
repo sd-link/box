@@ -1,52 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
 html, body {
   margin: 0;
   padding: 0;
-}
-
-app-root {
-  min-height: 100vh;
-}
-
-app-babylon-viewer {
+  background-color: #F1F2ED;
+  color: #222222;
   overflow: hidden;
 }
 
-app-appearance-customizer {
-  background-color: #EEEEEE;
-  
-  ul.nav-tabs .nav-link {
-    color: #888888;
-    font-weight: bold;
-    text-align: center;
-    border: 0;
-    padding: 0.125rem 0.25rem;
-
-    &.active {
-      background-color: transparent;
-      color: #FFFFFF;
-    }
-  }
-
-  .panel-heading {
-    cursor: pointer;
-  }
-
-  tabset li.disabled {
-    opacity: 0.5;
-  }
+app-root {
+  height: 100vh;
 }
 
-.material-icons {
-  line-height: 1;
+app-babylon-viewer {
+  line-height: 0;
+  overflow: hidden;
 }
 
 .md-inherit {
   font-size: inherit;
 }
 
-@media screen and (min-width: 768px) {
-  app-appearance-customizer ul.nav-tabs .nav-link {
-    padding: 0.5rem 0.5rem;
+a {
+  color: inherit;
+
+  & .st0 {
+    fill: #222222;
   }
+
+  &:hover,
+  &.active {
+    color: #EC121F;
+    text-decoration: none;
+
+    & .st0 {
+      fill: #EC121F;
+    }
+  }
+}
+
+.contain-svg svg {
+  max-height: 100%;
+  max-width: 100%;
 }

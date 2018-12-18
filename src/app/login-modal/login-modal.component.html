@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4>Sign up or Log in</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="text-center">
+        <a href="#"><img style="height: 2em;"
+                         src="https://scontent.fatl1-2.fna.fbcdn.net/v/t39.2365-6/18928641_251957295286418_4362086450741641216_n.png?_nc_cat=0&oh=96b2909091a5a140a6846aada6e4db93&oe=5BDAFA05"
+                         alt="Continue with Facebook"/></a>
+    </div>
+    <form class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="loginUsername">Username</label>
+            <input id="loginUsername" type="text" placeholder="PewPewCustoms" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" type="password" class="form-control">
+        </div>
+        <div class="text-right">
+            <a href="#">Forgot Password?</a>&nbsp;<button type="submit" class="btn btn-primary">Login</button>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label for="loginConfirmPassword">Confirm Password</label>
+            <input id="loginConfirmPassword" type="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="loginEmail">E-mail</label>
+            <input id="loginEmail" type="email" class="form-control" placeholder="account@emailhost.com">
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+</div>

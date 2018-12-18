@@ -1,13 +1,49 @@
-.navbar-nav * {
-  vertical-align: middle;
+.navbar {
+    padding: 0;
 }
 
-.nav-link {
-  background: none;
-  border: none;
-  cursor: pointer;
+.navbar-brand {
+    padding: 0 0.5em;
+}
+
+.navbar-brand img {
+    height: 2em;
+}
+
+.navbar-nav * {
+    vertical-align: middle;
+}
+
+.nav-item a {
+    display: block;
+    margin: 0.8em 0;
+    padding: 0 0.5em;
+}
+
+.nav-item:not(:first-child) a {
+    border-left: 1px solid grey;
 }
 
 .nav-item .icon {
-  font-size: 2em;
+    margin-right: 0.25em;
+}
+
+.nav-item .icon.svg {
+    display: inline-block;
+    line-height: 0;
+    height: 0.75em;
+}
+
+.nav-item.large {
+    background-color: #EC121F;
+    color: #F1F2ED;
+    padding: 0;
+}
+
+.nav-item.large a {
+    border-left: none;
+}
+
+.nav-item.large a:hover {
+    color: #222222;
 }

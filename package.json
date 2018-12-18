@@ -1,17 +1,17 @@
 {
-  "name": "modular-storage",
+  "name": "gun-customizer",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^6.1.0",
+    "@angular/animations": "^6.1.10",
     "@angular/common": "^6.1.0",
     "@angular/compiler": "^6.1.0",
     "@angular/core": "^6.1.0",
@@ -20,11 +20,24 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
-    "@ngx-translate/core": "^10.0.2",
-    "@ngx-translate/http-loader": "^3.0.1",
+    "body-parser": "^1.18.3",
+    "ccapture.js": "^1.1.0",
+    "cookie-parser": "^1.4.3",
     "core-js": "^2.5.4",
+    "express-session": "^1.15.6",
+    "ffmpeg-stream": "^0.5.0",
+    "morgan": "^1.9.1",
+    "ng-inline-svg": "^8.0.2",
     "ngx-bootstrap": "^3.0.1",
+    "parsehtml": "^1.0.0",
+    "passport": "^0.4.0",
+    "passport-twitter": "^1.0.4",
+    "progress-stream": "^2.0.0",
     "rxjs": "^6.0.0",
+    "socket.io-client": "^2.1.1",
+    "store": "^2.0.12",
+    "tar-stream": "^1.6.2",
+    "twit": "^2.2.11",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
@@ -46,6 +59,7 @@
     "protractor": "~5.3.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
-    "typescript": "~2.7.2"
+    "typescript": "~2.7.2",
+    "undo-manager": "^1.0.5"
   }
 }

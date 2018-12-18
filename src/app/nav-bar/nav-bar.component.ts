@@ -1,50 +1,63 @@
-import {Component} from '@angular/core';
-import { InteractionEventService } from '../interaction-event.service';
-import { ViewerBindingService } from '../viewer-binding.service';
-import { SimpleModelTracking } from '../babylon-viewer/babylon-viewer.component';
-import {HelperTextService} from '../helper-text.service';
-import {TranslateService} from '@ngx-translate/core';
+import {Component, OnInit} from '@angular/core';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {UserService} from '../user.service';
+import {LoginModalComponent} from '../login-modal/login-modal.component';
+import {NotifierService} from '../notifier.service';
+import {ViewerService} from '../viewer.service';
+import {ShareModalComponent} from '../share-modal/share-modal.component';
 
 @Component({
-  selector: 'app-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+    selector: 'app-nav-bar',
+    templateUrl: './nav-bar.component.html',
+    styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent {
-  public submitURL = '';
-  public chosenLanguage = 'en';
-  public languages = ['en', 'de'];
+export class NavBarComponent implements OnInit {
+    public openModal: BsModalRef = null;
 
-  constructor(private interactionEventService: InteractionEventService, private viewerBindingService: ViewerBindingService,
-              public helperTextService: HelperTextService, public translate: TranslateService) {
-    this.submitURL = window['modularStorageSubmitURL'];
-    
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    // look up the "lang" url parameter and choose the language based on that
-    let search = window.location.search;
-    let langIndex = search.indexOf("lang=");
-    let lang = (langIndex >= 0) ? search.substr(langIndex + 5, 2) : 'en';
-    this.chosenLanguage = lang;
-    this.languageChosen();
-  }
+    constructor(private modalService: BsModalService, private userService: UserService,
+                private notifierService: NotifierService, private viewerService: ViewerService) {
+    }
 
-  activeModels(): SimpleModelTracking[] {
-    return this.viewerBindingService.viewer.placedModels() || [];
-  }
+    ngOnInit() {
+    }
 
-  currentProductImage(): string {
-    return this.viewerBindingService.viewer.currentProductImageBase64;
-  }
+    /**
+     * Initialises the sharing of the content via social media
+     * @param {Event} event
+     */
+    startSharing(event?: MouseEvent) {
 
-  onSubmit(e) {
-    e.target.submit();
-  }
+        this.openShareModal(event);
 
-  reset() {
-    this.interactionEventService.notify('reset');
-  }
-  
-  languageChosen() {
-    this.translate.use(this.chosenLanguage);
-  }
+
+    }
+
+    openFavoriteModal(event: MouseEvent) {
+        if (this.userService.loggedIn()) {
+            // TODO
+        } else {
+            this.openModal = this.modalService.show(LoginModalComponent);
+        }
+
+        return this.stopEvent(event);
+    }
+
+    openShareModal(event: MouseEvent) {
+        this.openModal = this.modalService.show(ShareModalComponent);
+        return this.stopEvent(event);
+    }
+
+
+    resetMaterials(event: MouseEvent) {
+        this.notifierService.notify('reset');
+
+        return this.stopEvent(event);
+    }
+
+    stopEvent(event: MouseEvent) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        return false;
+    }
 }
