@@ -1,1 +1,29 @@
+<div #menuLayer *ngIf="objects && activeRoot">
+  <div *ngFor="let object of objects">
+    <div *ngIf="isActiveObject(object)">
+      <div *ngFor="let face of object.faces" [ngClass]="getObjectMenuClass(face)">
+        <div class="menu-arrow" [ngStyle]="getObjectMenuArrowStyle(face)">
+        </div>
+        <div class="menu-layer" [ngStyle]="getObjectMenuLineStyle(face)">
+        </div>
+        <div class="menu-layer"  [ngStyle]="getObjectMenuButtonStyle(face)">
+          <div class="menu-caption">{{face.name}}</div>
+          <button class="menu-button">CUSTOM ></button>
+          <div *ngIf="menuItems" class="menu-items-wrapper">
+            <div *ngFor="let menuItem of menuItems" class="menu-item">
+              <div class="menu-space-line"></div>
+              <div class="menu-option-button"></div>
+              <div class="menu-item-label">
+                {{menuItem.name}}
+              </div>
+              
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <canvas #renderTarget class="babylon-viewer" touch-action="none" (contextmenu)="false;"></canvas>

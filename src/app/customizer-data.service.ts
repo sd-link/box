@@ -197,6 +197,101 @@ export class CustomizerDataService {
                     ]
                 }
             ],
+            customSections: [
+                {
+                    name: 'Color',
+                    globalReset: true,
+                    interactionType: 'alterMaterial',
+                    affectedParameter: 'color',
+                    optionGroups: [
+                        {
+                            allowNone: true,
+                            options: [
+                                {
+                                    name: 'Silver',
+                                    displayColor: '#fcfaf5',
+                                    interactionValue: '#fcfaf5'
+                                },
+                                {
+                                    name: 'Gold',
+                                    displayColor: '#ffe29b',
+                                    interactionValue: '#ffe29b'
+                                },
+                                {
+                                    name: 'White',
+                                    displayColor: '#FFFFFF',
+                                    interactionValue: '#FFFFFF'
+                                },
+                                {
+                                    name: 'Pink',
+                                    displayColor: '#EE82EE',
+                                    interactionValue: '#EE82EE'
+                                },
+                                {
+                                    name: 'Fuchsia',
+                                    displayColor: '#800080',
+                                    interactionValue: '#800080'
+                                },
+                                {
+                                    name: 'Blue',
+                                    displayColor: '#000080',
+                                    interactionValue: '#000080'
+                                },
+                                {
+                                    name: 'Teal',
+                                    displayColor: '#7FFFD4',
+                                    interactionValue: '#7FFFD4'
+                                },
+                                {
+                                    name: 'Lime',
+                                    displayColor: '#00FF00',
+                                    interactionValue: '#00FF00'
+                                },
+                                {
+                                    name: 'Green',
+                                    displayColor: '#008000',
+                                    interactionValue: '#008000'
+                                },
+                                {
+                                    name: 'Yellow',
+                                    displayColor: '#FFFF00',
+                                    interactionValue: '#FFFF00'
+                                },
+                                {
+                                    name: 'Orange',
+                                    displayColor: '#FFA500',
+                                    interactionValue: '#FFA500'
+                                },
+                                {
+                                    name: 'Red',
+                                    displayColor: '#FF0000',
+                                    interactionValue: '#FF0000'
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: 'Graphics',
+                    globalReset: true,
+                    interactionType: 'alterMaterial',
+                    affectedParameter: 'texture',
+                    optionGroups: [
+                        {
+                            allowNone: true,
+                            options: textureOptions
+                        }
+                    ]
+                },
+                {
+                    name: 'Text',
+                    globalReset: true,
+                    interactionType: 'alterMaterial',
+                    affectedParameter: 'texture',
+                    isText: true,
+                    defaultValue: 'smile'
+                },
+            ],
             weapons: weaponsConfig
         });
     }

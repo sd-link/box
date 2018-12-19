@@ -24,10 +24,21 @@ export const box: WeaponCustomization = {
     faces: [
         {
             name: 'front',
-            position: new BABYLON.Vector3(-2, -0.05, 0),
-            rotation: new BABYLON.Vector3(-2, -0.05, 0),
-            mesh: '0' 
-        }
+            position: new BABYLON.Vector3(0, 0, 0.5),
+            rotation: new BABYLON.Vector3(0, 0, 0),
+            camera: {
+                alpha: Math.PI / 2,
+                beta: Math.PI / 2,
+            },
+            mesh: '0',
+            isHMenu: true
+        },
+        // {
+        //     name: 'left',
+        //     position: new BABYLON.Vector3(0.5, 0, 0),
+        //     rotation: new BABYLON.Vector3(0, 0, 0),
+        //     mesh: '1' 
+        // },
     ],
 
     

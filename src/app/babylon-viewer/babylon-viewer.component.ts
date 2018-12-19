@@ -1,8 +1,8 @@
 /// <reference path="../../babylon.d.ts"/>
 import {AfterContentInit, Component, OnDestroy, ViewChild} from '@angular/core';
 import {ViewerService} from '../viewer.service';
-
-import {MaterialProperties, PreviewOptions, Value3D} from '../customizer-data-types';
+import {CustomizerDataService} from '../customizer-data.service'
+import {MaterialProperties, PreviewOptions, Value3D, CustomMenuSection, WeaponCustomization, WeaponCustomizationData} from '../customizer-data-types';
 
 import {NotifierService} from '../notifier.service';
 import {Subscription} from 'rxjs';
@@ -13,8 +13,8 @@ import {Subscription} from 'rxjs';
     styleUrls: ['./babylon-viewer.component.css']
 })
 export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
-    @ViewChild('renderTarget')
-    renderCanvas;
+    @ViewChild('renderTarget') renderCanvas;
+    @ViewChild('menuLayer') menuLayer;
 
     public initialized = false;
     public engine: BABYLON.Engine;
@@ -39,8 +39,10 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
     private resetSubscription: Subscription;
     private objectUnderCursor: BABYLON.AbstractMesh;
     private previousObjectUnderCursor: BABYLON.AbstractMesh;
+    private objects: WeaponCustomization[];
+    private menuItems: CustomMenuSection[];
 
-    constructor(private viewerService: ViewerService, notifierService: NotifierService) {
+    constructor(private viewerService: ViewerService, notifierService: NotifierService, customizerDataService: CustomizerDataService) {
         viewerService.viewer = this;
         this.resetSubscription = notifierService.observable('reset').subscribe(() => {
             const keys: string[] = [];
@@ -67,6 +69,10 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
             });
 
             this.viewerService.notifyReset();
+        });
+        customizerDataService.weaponsData().subscribe((customizationData) => {
+            this.objects = customizationData.weapons;
+            this.menuItems = customizationData.customSections;
         });
 
     }
@@ -241,7 +247,7 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
         this.engine = new BABYLON.Engine(this.displayCanvas, true, {preserveDrawingBuffer: true});
 
         this.scene = new BABYLON.Scene(this.engine);
-        this.scene.clearColor = new BABYLON.Color4(241 / 255, 242 / 255, 237 / 255, 1);
+        // this.scene.clearColor = new BABYLON.Color4(241 / 255, 242 / 255, 237 / 255, 1);
         this.scene.onPointerObservable.add((eventData, eventState) => {
             this.pointerObserved(eventData, eventState);
         });
@@ -256,12 +262,164 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
         this.engine.runRenderLoop(() => {
             this.render();
             // this.updateHoverControls();
-
         });
 
         this.initialized = true;
 
         this.viewerService.notifyInitialized();
+    }
+
+    isActiveObject(object) {
+        const combinedName = object.modelFolder + object.modelFile;
+        return combinedName === this.activeRoot.name;
+    }
+
+    getObjectMenuVisibility(face) {
+        let display = true;
+        const cameraAlpha = this.camera.alpha % (Math.PI * 2);
+        const cameraBeta = this.camera.beta % (Math.PI * 2);
+
+        if (Math.abs(cameraAlpha - face.camera.alpha) > Math.PI / 3.5 ||
+            Math.abs(cameraBeta - face.camera.beta) > Math.PI / 3.5) {
+            display = false;
+        }        
+        return display;
+    }
+    getObjectPosition2d(face, w, h) {
+        return BABYLON.Vector3.Project(new BABYLON.Vector3(face.position.x, face.position.y, face.position.z), BABYLON.Matrix.Identity(), this.scene.getTransformMatrix(), this.camera.viewport.toGlobal(this.engine, h));
+    }
+    getObjectMenuClass(face) {
+        const w = this.renderCanvas.nativeElement.width;
+        const h = this.renderCanvas.nativeElement.height;
+        const p2d = this.getObjectPosition2d(face, w, h);
+        return (p2d.x > w / 2)? 'menu-right':'menu-left'
+    }
+    getObjectMenuArrowStyle(face) {
+        const w = this.renderCanvas.nativeElement.width;
+        const h = this.renderCanvas.nativeElement.height;
+        const p2d = this.getObjectPosition2d(face, w, h);
+        let aw, ah;
+        let left, top;
+
+        if (face.isHMenu) {
+            ah = 1;
+            top = p2d.y + 50;
+            if (p2d.x > w / 2) {
+                aw = w * 3 / 4 - p2d.x;
+                left = p2d.x;
+            } else {
+                aw = p2d.x - w / 4;
+                left = p2d.x - aw;
+            }
+        }
+        return {
+            'left': left + 'px',
+            'top': top + 'px',
+            'display': this.getObjectMenuVisibility(face)?'':'none',
+            'width': aw + 'px',
+            'height': ah + 'px'
+        };
+    }
+
+    getObjectMenuLineStyle(face) {
+        const w = this.renderCanvas.nativeElement.width;
+        const h = this.renderCanvas.nativeElement.height;
+        const p2d = this.getObjectPosition2d(face, w, h);
+        const menuH = 300;
+        
+        let dw, dh;
+        let left, top;
+        
+        if (face.isHMenu) {
+            dw = 1;
+            if (p2d.x > w / 2) {
+                left = w * 3 / 4;
+                if (p2d.y > menuH) {
+                    dh = menuH / 4;
+                    top = p2d.y - dh + 50 + dw;
+                } else {
+                    dh = 0;
+                    top = p2d.y + 50;
+                }
+                
+            } else {
+                left = w / 4;
+                if (p2d.y < h - menuH) {
+                    dh = menuH / 4;
+                    top = p2d.y + 50 + dw;
+                } else {
+                    dh = 0;
+                    top = p2d.y + 50;
+                }
+            }
+        }
+
+        return {
+            'left': left + 'px',
+            'top': top + 'px',
+            'display': this.getObjectMenuVisibility(face)?'':'none',
+            'background-color': 'black',
+            'width': dw + 'px',
+            'height': dh + 'px'
+        };
+    }
+    getObjectMenuButtonStyle(face) {
+        const w = this.renderCanvas.nativeElement.width;
+        const h = this.renderCanvas.nativeElement.height;
+        const p2d = this.getObjectPosition2d(face, w, h);
+        const menuH = 300;
+        
+        let dw, dh;
+        let left, top;
+        
+        if (face.isHMenu) {
+            dw = 2;
+            if (p2d.x > w / 2) {
+                left = w * 3 / 4;
+                if (p2d.y > menuH) {
+                    dh = menuH / 4;
+                    top = p2d.y - dh + 50 - 10;
+                } else {
+                    dh = 0;
+                    top = p2d.y + 50;
+                    left += 50;
+                }
+                
+            } else {
+                left = w / 4;
+                if (p2d.y < h - menuH) {
+                    dh = menuH / 4;
+                    top = p2d.y + dh + 50 + 10;
+                } else {
+                    dh = 0;
+                    top = p2d.y + 50;
+                    left -= 50;
+                }
+            }
+        }
+
+        return {
+            'left': left + 'px',
+            'top': top + 'px',
+            'display': this.getObjectMenuVisibility(face)?'':'none',
+        };
+    }
+
+    getObjectMenuItemStyle (face) {
+        const w = this.renderCanvas.nativeElement.width;
+        const h = this.renderCanvas.nativeElement.height;
+        const p2d = this.getObjectPosition2d(face, w, h);
+        if (p2d.x > w / 2) {
+            return {
+                'display': 'flex',
+                'flex-direction': 'column-reverse'                
+            };        
+        } else {
+            return {
+                'display': 'flex',
+                'flex-direction': 'column' 
+            };        
+        }
     }
 
     ngOnDestroy() {
@@ -321,7 +479,10 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
     }
     
     setFace(object, face) {
-        
+        var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.2}, this.scene); //default sphere
+        sphere.position = new BABYLON.Vector3(face.position.x, face.position.y, face.position.z)
+        console.log(face)
+        // this.menuLayer.nativeElement.append
     }
 
     replaceMaterials(modelRoot: string, modelPath: string, oldMaterialNames: string[], newMaterialName: string) {
@@ -455,7 +616,7 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
     }
 
     setupCamera() {
-        this.camera = new BABYLON.ArcRotateCamera('mainCam', 0, Math.PI / 2, 2,
+        this.camera = new BABYLON.ArcRotateCamera('mainCam', Math.PI / 2, Math.PI / 2, 2,
             new BABYLON.Vector3(0, 0, 0), this.scene, true);
         this.camera.useFramingBehavior = true;
         this.camera.wheelPrecision = 500;

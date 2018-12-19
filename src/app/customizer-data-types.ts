@@ -1,3 +1,5 @@
+import { Camera } from "babylonjs";
+
 /**
  * Note: the current implementation only uses pitch
  */
@@ -92,16 +94,34 @@ export interface WeaponCustomization {
     customizations: AppearanceSection[];
 }
 
+export interface CameraDirection {
+    alpha: number,
+    beta: number
+}
+
 export interface Face3D {
     name: string;
     mesh: string;
     position: Value3D;
     rotation: Value3D;
+    isHMenu?: boolean,
+    camera?: CameraDirection,
 }
 
+
+export interface CustomMenuSection {
+    name: string;
+    globalReset: boolean;
+    interactionType: string;
+    affectedParameter?: string;
+    isText?: boolean;
+    defaultValue?: string;
+    optionGroups?: AppearanceOptionGroup[];
+}
 export interface WeaponCustomizationData {
     environment?: string;
     commonMaterials?: MaterialProperties[];
     commonSections?: AppearanceSection[];
+    customSections?: CustomMenuSection[];
     weapons: WeaponCustomization[];
 }

@@ -4,3 +4,107 @@
     min-height: 60vh;
     touch-action: none;
 }
+.menu-layer {
+    position: absolute;
+    z-index: 0;
+    
+}
+.menu-left .menu-arrow {
+    position: absolute;
+    z-index: 0;
+    background-image: linear-gradient(to right, rgb(0,0,0) , rgba(0,0,0,0));
+}
+.menu-right .menu-arrow {
+    position: absolute;
+    z-index: 0;
+    background-image: linear-gradient(to right, rgba(0,0,0,0) , rgb(0,0,0));
+}
+.menu-button {
+    position: relative;
+    right: 50px;
+    width: 100px;
+    top: -10px;
+    height: 22px;
+    background: transparent;
+    border-radius: 10px;
+    border: 1px solid black;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+}
+.menu-item {
+    position: relative;
+}
+.menu-caption {
+    position: absolute;
+    font-size: 16px;
+    color: black;
+    width: 100px;
+    height: 20px;
+}
+.menu-space-line {
+    height: 15px;
+    width: 1px;
+    margin-left: -1px;
+    background: black;
+}
+.menu-option-button {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-left: -10px;
+    cursor: pointer;
+}
+
+.menu-item-label {
+    position: relative;    
+    font-size: 12px;
+    color: black;
+}
+
+
+.menu-left .menu-items-wrapper {
+    top: -10px;
+    height: 150px;
+    width: 300px;
+    position: relative;
+}
+.menu-right .menu-items-wrapper {
+    bottom: 180px;
+    height: 150px;
+    width: 300px;
+    right: 300px;
+    position: relative;    
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.menu-left  .menu-items-wrapper .menu-item {
+    display: flex;
+    flex-direction: column;    
+}
+.menu-right .menu-items-wrapper .menu-item {
+    display: flex;
+    flex-direction: column-reverse;    
+}
+
+.menu-left .menu-items-wrapper .menu-caption {
+    right: 90px;
+    
+}
+.menu-right .menu-items-wrapper .menu-caption {
+    
+}
+
+.menu-left .menu-items-wrapper .menu-item .menu-item-label {
+    bottom: 8px;
+    left: 14px;
+}
+.menu-right .menu-items-wrapper .menu-item .menu-item-label {
+    top: 10px;
+    right: -15px;
+}
+.menu-right .menu-items-wrapper .menu-item {
+    right: -300px;
+}
