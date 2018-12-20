@@ -29,6 +29,7 @@
     "morgan": "^1.9.1",
     "ng-inline-svg": "^8.0.2",
     "ngx-bootstrap": "^3.0.1",
+    "ngx-drag-scroll": "^2.0.4",
     "parsehtml": "^1.0.0",
     "passport": "^0.4.0",
     "passport-twitter": "^1.0.4",

@@ -7,6 +7,7 @@ import {MaterialProperties, PreviewOptions, Value3D, CustomMenuSection, WeaponCu
 import {NotifierService} from '../notifier.service';
 import {Subscription} from 'rxjs';
 
+declare var $;
 @Component({
     selector: 'app-babylon-viewer',
     templateUrl: './babylon-viewer.component.html',
@@ -42,6 +43,9 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
     private objects: WeaponCustomization[];
     private menuItems: CustomMenuSection[];
 
+    private menuScroll: any;
+    private objectState: any;
+
     constructor(private viewerService: ViewerService, notifierService: NotifierService, customizerDataService: CustomizerDataService) {
         viewerService.viewer = this;
         this.resetSubscription = notifierService.observable('reset').subscribe(() => {
@@ -73,6 +77,11 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
         customizerDataService.weaponsData().subscribe((customizationData) => {
             this.objects = customizationData.weapons;
             this.menuItems = customizationData.customSections;
+            this.menuScroll = {};
+            this.menuItems.forEach((menuItem) => {
+                this.menuScroll[menuItem.name] = 0;
+            });
+
         });
 
     }
@@ -420,6 +429,32 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
                 'flex-direction': 'column' 
             };        
         }
+    }
+
+    getColorOptionStyle (option) {
+        return {
+            'background-color': option.displayColor
+        }
+    }
+
+    menuOptionScroll (event, menuItem, direction, options) {
+        
+        const el = $(event.target.parentElement).find('.squares');
+        const wWrapper = $(event.target.parentElement).find('.squares').height();
+        const optionsLength = (options) ? options.length : 0;
+        const wPane = $(event.target.parentElement).find('.squares div').height() * (optionsLength + 1);
+        const wDiff = wPane - wWrapper;
+
+        let shift = el.scrollTop() + direction * 40;
+        
+        if (direction < 0 && shift < 0) {
+            el.scrollTop(0);
+        } else if (direction > 0 && shift >= wDiff) {
+            el.scrollTop(wDiff);
+        } else {
+            el.scrollTop(shift);
+        }
+        console.log(el.scrollTop(), shift)
     }
 
     ngOnDestroy() {

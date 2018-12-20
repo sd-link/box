@@ -10,6 +10,7 @@ import {NavBarComponent} from './nav-bar/nav-bar.component';
 import {AppearanceControlsComponent} from './appearance-controls/appearance-controls.component';
 import {ShareModalComponent} from './share-modal/share-modal.component';
 import {LoginModalComponent} from './login-modal/login-modal.component';
+import { DragScrollModule } from 'ngx-drag-scroll';
 
 @NgModule({
     declarations: [
@@ -18,13 +19,15 @@ import {LoginModalComponent} from './login-modal/login-modal.component';
         NavBarComponent,
         AppearanceControlsComponent,
         ShareModalComponent,
-        LoginModalComponent
+        LoginModalComponent,
+        
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
         ModalModule.forRoot(),
-        InlineSVGModule.forRoot()
+        InlineSVGModule.forRoot(),
+        DragScrollModule
     ],
     providers: [],
     entryComponents: [LoginModalComponent, ShareModalComponent],

@@ -16,6 +16,16 @@
               <div class="menu-item-label">
                 {{menuItem.name}}
               </div>
+              <div *ngIf="menuItem.affectedParameter==='color'" class="menu-control">                  
+                <a class="menu-button-left" (click)="menuOptionScroll($event, menuItem.name, -1, menuItem.optionGroups[0].options)">◄</a>
+                <div class="horizontal-scroll-wrapper squares">
+                  <div *ngFor="let option of menuItem.optionGroups[0].options" [ngStyle]="getColorOptionStyle(option)"></div>
+                
+
+                </div>
+                <a class="menu-button-right" (click)="menuOptionScroll($event,menuItem.name, 1, menuItem.optionGroups[0].options)">►</a>
+
+              </div>
               
             </div>
 

@@ -3,6 +3,7 @@ import {Observable, of} from 'rxjs';
 import {box} from './object/box';
  
 import {AppearanceOption, WeaponCustomizationData} from './customizer-data-types';
+import { InterpolateValueAction } from 'babylonjs';
  
 
 const weaponsAvailable = [
@@ -65,9 +66,9 @@ export class CustomizerDataService {
     }
 
     weaponsData(): Observable<WeaponCustomizationData> {
-        let textureOptions = this.generateTextureOptions(12, 'BW/bw_pattern_#.jpg', 'BW Pattern #');
-        textureOptions = textureOptions.concat(this.generateTextureOptions(20, 'Colorful1/colorful1_pattern_#.jpg', 'Colorful1 Pattern #'));
-        textureOptions = textureOptions.concat(this.generateTextureOptions(10, 'Colorful2/colorful2_pattern_#.jpg', 'Colorful2 Pattern #'));
+        // let textureOptions = this.generateTextureOptions(12, 'BW/bw_pattern_#.jpg', 'BW Pattern #');
+        // textureOptions = textureOptions.concat(this.generateTextureOptions(20, 'Colorful1/colorful1_pattern_#.jpg', 'Colorful1 Pattern #'));
+        // textureOptions = textureOptions.concat(this.generateTextureOptions(10, 'Colorful2/colorful2_pattern_#.jpg', 'Colorful2 Pattern #'));
 
         return of({
             environment: 'assets/textures/environments/parking.hdr',
@@ -192,7 +193,18 @@ export class CustomizerDataService {
                     optionGroups: [
                         {
                             allowNone: true,
-                            options: textureOptions
+                            options: [
+                                {
+                                    name: 'star',
+                                    displayImg: 'assets/img/patterns/star.png',
+                                    interactionValue: 'assets/img/patterns/star.png'
+                                },
+                                {
+                                    name: 'triangle',
+                                    displayImg: 'assets/img/patterns/triangle.png',
+                                    interactionValue: 'assets/img/patterns/triangle.png'
+                                },
+                            ]
                         }
                     ]
                 }
@@ -279,7 +291,18 @@ export class CustomizerDataService {
                     optionGroups: [
                         {
                             allowNone: true,
-                            options: textureOptions
+                            options: [
+                                {
+                                    name: 'star',
+                                    displayImg: 'assets/img/patterns/star.png',
+                                    interactionValue: 'assets/img/patterns/star.png'
+                                },
+                                {
+                                    name: 'triangle',
+                                    displayImg: 'assets/img/patterns/triangle.png',
+                                    interactionValue: 'assets/img/patterns/triangle.png'
+                                },
+                            ]
                         }
                     ]
                 },
