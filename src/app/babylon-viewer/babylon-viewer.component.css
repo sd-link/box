@@ -142,11 +142,12 @@
 .menu-button-left, .menu-button-right {
     background: transparent;
     font-size: 14px;
-    color: white;
+    color: white !important;
     border: none;
     margin-top: 15px;
     width: 20px;
     cursor: pointer;
+    padding-left: 2px;
 }
 
 
@@ -162,7 +163,7 @@
    
  
   
-.horizontal-scroll-wrapper {
+.menu-scroll-wrapper {
     position: absolute;
     display: block;
     top: 0;
@@ -172,26 +173,23 @@
     margin: 0;
     overflow-y: auto;
     overflow-x: hidden;
+    padding: 23px 0 0 2px;
+    
     -webkit-transform: rotate(-90deg) translateY(-15px);
             transform: rotate(-90deg) translateY(-15px);
     -webkit-transform-origin: right top;
             transform-origin: right top;
 }
-.horizontal-scroll-wrapper > div {
+.scroll-option {
     display: block;
-    background: red;
+    background: white;
+    border: 1px solid black;
     border-radius: 15px;
     -webkit-transform: rotate(90deg);
             transform: rotate(90deg);
     -webkit-transform-origin: right top;
             transform-origin: right top;
-}
-  
-.squares {
-    padding: 23px 0 0 2px;
-}
-.squares > div {
     width: 23px;
     height: 23px;
-    margin: 3px 0;
+    margin: 3px 0;            
 }

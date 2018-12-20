@@ -437,12 +437,19 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
         }
     }
 
+    getGraphicOptionStyle (option) {
+        return {
+            'background': option.displayImg,
+        }
+    }
+
     menuOptionScroll (event, menuItem, direction, options) {
         
-        const el = $(event.target.parentElement).find('.squares');
-        const wWrapper = $(event.target.parentElement).find('.squares').height();
+        const el = $(event.target.parentElement).find('.menu-scroll-wrapper');
+        const wWrapper = $(event.target.parentElement).find('.menu-scroll-wrapper').height();
         const optionsLength = (options) ? options.length : 0;
-        const wPane = $(event.target.parentElement).find('.squares div').height() * (optionsLength + 1);
+
+        const wPane = $(event.target.parentElement).find('.menu-scroll-wrapper .scroll-option').height() * (optionsLength + 1);
         const wDiff = wPane - wWrapper;
 
         let shift = el.scrollTop() + direction * 40;
