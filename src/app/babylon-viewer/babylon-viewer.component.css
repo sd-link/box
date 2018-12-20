@@ -31,6 +31,10 @@
     color: black;
     cursor: pointer;
     font-size: 14px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .menu-item {
     position: relative;
@@ -57,6 +61,12 @@
     margin-left: -1px;
     background: black;
 }
+.menu-space-line-long {
+    height: 40px;
+    width: 1px;
+    margin-left: -1px;
+    background: black;
+}
 .menu-option-button {
     width: 20px;
     height: 20px;
@@ -76,14 +86,14 @@
 .menu-left .menu-items-wrapper {
     top: -10px;
     height: 150px;
-    width: 300px;
+    width: 200px;
     position: relative;
 }
 .menu-right .menu-items-wrapper {
-    bottom: 180px;
+    bottom: 181px;
     height: 150px;
-    width: 300px;
-    right: 300px;
+    width: 200px;
+    right: 200px;
     position: relative;    
     display: flex;
     flex-direction: column-reverse;
@@ -117,12 +127,12 @@
     right: -15px;
 }
 .menu-right .menu-items-wrapper .menu-item {
-    right: -300px;
+    right: -230px;
 }
 
 .menu-control {
     position: absolute;
-    width: 300px;
+    width: 230px;
     height: 32px;
     background: rgba(0,0,0,0.4);
     border-radius: 15px;
@@ -131,23 +141,29 @@
 }
 .menu-left .menu-control {
     left: 19px;
-    top: 19px;
+    bottom: -6px;
 }
 .menu-right .menu-control {
-    left: -319px;
+    left: -249px;
     top: -7px;
+}
+.menu-control-sub {
+    width: 100%;
+    margin-left: -5px;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
 }
  
  
 .menu-button-left, .menu-button-right {
     background: transparent;
-    font-size: 14px;
+    font-size: 20px;
     color: white !important;
     border: none;
-    margin-top: 15px;
+    margin-top: 5px;
     width: 20px;
     cursor: pointer;
-    padding-left: 2px;
 }
 
 
@@ -160,8 +176,6 @@
     width: 1px;
     height: 1px;
 }
-   
- 
   
 .menu-scroll-wrapper {
     position: absolute;
@@ -169,8 +183,8 @@
     top: 0;
     left: 0;
     width: 30px;
-    max-height: 260px;
-    margin: 0;
+    max-height: 195px;
+    margin-left: 2px;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 23px 0 0 2px;
@@ -179,6 +193,10 @@
             transform: rotate(-90deg) translateY(-15px);
     -webkit-transform-origin: right top;
             transform-origin: right top;
+}
+.menu-control-sub .menu-scroll-wrapper {
+    max-height: 168px;
+    margin-left: 31px;
 }
 .scroll-option {
     display: block;
@@ -189,7 +207,94 @@
             transform: rotate(90deg);
     -webkit-transform-origin: right top;
             transform-origin: right top;
-    width: 23px;
-    height: 23px;
+    width: 25px;
+    height: 25px;
     margin: 3px 0;            
+}
+.menu-control-button {
+    display: block;
+    background: white;
+    border: 1px solid black;
+    border-radius: 15px;
+    min-width: 25px;
+    height: 25px;
+    padding: 4px;
+    margin: 3px 5px;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    cursor: pointer;
+}
+.vertical-sep-line {
+    width: 1px;
+    height: 26px;
+    background: white;
+    margin: 3px;
+}
+.option-text-input {
+    margin: 5px 5px 5px 15px;
+    background: transparent;
+    border-style: none;
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    height: 20px;
+    width: 170px;
+    color: white;
+}
+.option-text-length {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    font-size: 14px;
+    color: white;
+    margin-right: 5px;
+}
+
+.menu-left .option-text-confirm-button {
+    position: absolute;
+    right: -37px;
+    top: 0px;
+    width: 32px;
+    height: 32px;
+    background: black;
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.menu-right .option-text-confirm-button {
+    position: absolute;
+    left: -37px;
+    top: 0px;
+    width: 32px;
+    height: 32px;
+    background: black;
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.option-text-down-button {
+    position: absolute;
+    bottom: -22px;
+    left: 84px;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.option-text-up-button {
+    position: absolute;
+    top: -22px;
+    left: 84px;
+    font-size: 32px;
+    cursor: pointer;
 }

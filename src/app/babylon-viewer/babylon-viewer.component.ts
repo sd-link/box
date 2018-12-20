@@ -445,11 +445,11 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
 
     menuOptionScroll (event, menuItem, direction, options) {
         
-        const el = $(event.target.parentElement).find('.menu-scroll-wrapper');
+        const el = $(event.target.parentElement.parentElement).find('.menu-scroll-wrapper');
         const wWrapper = $(event.target.parentElement).find('.menu-scroll-wrapper').height();
         const optionsLength = (options) ? options.length : 0;
 
-        const wPane = $(event.target.parentElement).find('.menu-scroll-wrapper .scroll-option').height() * (optionsLength + 1);
+        const wPane = ($(event.target.parentElement).find('.menu-scroll-wrapper .scroll-option').height() + 2) * (optionsLength + 2);
         const wDiff = wPane - wWrapper;
 
         let shift = el.scrollTop() + direction * 40;

@@ -8,35 +8,52 @@
         </div>
         <div class="menu-layer"  [ngStyle]="getObjectMenuButtonStyle(face)">
           <div class="menu-caption">{{face.name}}</div>
-          <button class="menu-button">CUSTOM ></button>
+          <button class="menu-button">
+            <span>CUSTOM</span> 
+            <i class="material-icons md-inherit icon">chevron_right</i>
+          </button>
           <div *ngIf="menuItems" class="menu-items-wrapper">
             <div *ngFor="let menuItem of menuItems" class="menu-item">
-              <div class="menu-space-line"></div>
+              <div *ngIf="!menuItem.isText" class="menu-space-line"></div>
+              <div *ngIf="menuItem.isText" class="menu-space-line-long"></div>
               <div class="menu-option-button"></div>
               <div class="menu-item-label">
                 {{menuItem.name}}
               </div>
               <!-- colors -->
               <div *ngIf="menuItem.affectedParameter==='color'" class="menu-control">                  
-                <a class="menu-button-left" (click)="menuOptionScroll($event, menuItem.name, -1, menuItem.optionGroups[0].options)">◄</a>
+                <a class="menu-button-left" (click)="menuOptionScroll($event, menuItem.name, -1, menuItem.optionGroups[0].options)"><i class="material-icons md-inherit icon">arrow_left</i></a>
                 <div class="menu-scroll-wrapper">
                   <div class="scroll-option" *ngFor="let option of menuItem.optionGroups[0].options" [ngStyle]="getColorOptionStyle(option)"></div>
-                
-
                 </div>
-                <a class="menu-button-right" (click)="menuOptionScroll($event,menuItem.name, 1, menuItem.optionGroups[0].options)">►</a>
+                <a class="menu-button-right" (click)="menuOptionScroll($event,menuItem.name, 1, menuItem.optionGroups[0].options)"><i class="material-icons md-inherit icon">arrow_right</i></a>
 
               </div>
               <!-- graphics -->
-              <div *ngIf="menuItem.affectedParameter==='texture' && !menuItem.isText" class="menu-control">                  
-                <a class="menu-button-left" (click)="menuOptionScroll($event, menuItem.name, -1, menuItem.optionGroups[0].options)">◄</a>
-                <div class="menu-scroll-wrapper">
-                  <img class="scroll-option" *ngFor="let option of menuItem.optionGroups[0].options" src="{{option.displayImg}}">
+              <div *ngIf="menuItem.affectedParameter==='texture' && !menuItem.isText" class="menu-control">  
+                <div class="menu-control-button">
+                    <i class="material-icons md-inherit icon">add</i>
+                </div>   
+                <div class="menu-control-sub">
+                  <a class="menu-button-left" (click)="menuOptionScroll($event, menuItem.name, -1, menuItem.optionGroups[0].options)"><i class="material-icons md-inherit icon">arrow_left</i></a>
+                  <div class="menu-scroll-wrapper">
+                    <img class="scroll-option" *ngFor="let option of menuItem.optionGroups[0].options" src="{{option.displayImg}}">
 
-                </div>
-                <a class="menu-button-right" (click)="menuOptionScroll($event,menuItem.name, 1, menuItem.optionGroups[0].options)">►</a>
-
+                  </div>
+                  <a class="menu-button-right" (click)="menuOptionScroll($event,menuItem.name, 1, menuItem.optionGroups[0].options)"><i class="material-icons md-inherit icon">arrow_right</i></a>                  
+                </div>             
               </div>
+
+              <!-- text -->
+              <div *ngIf="menuItem.isText" class="menu-control">  
+                <input class="option-text-input">
+                <div class="vertical-sep-line"></div>
+                <div class="option-text-length">10</div>
+                <a class="option-text-confirm-button">OK</a>
+                <a class="option-text-up-button"><i class="material-icons md-inherit icon">arrow_drop_up</i></a>
+                <a class="option-text-down-button"><i class="material-icons md-inherit icon">arrow_drop_down</i></a>
+              </div>
+
             </div>
 
 
