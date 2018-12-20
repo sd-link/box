@@ -33,12 +33,17 @@ export const box: WeaponCustomization = {
             mesh: '0',
             isHMenu: true
         },
-        // {
-        //     name: 'left',
-        //     position: new BABYLON.Vector3(0.5, 0, 0),
-        //     rotation: new BABYLON.Vector3(0, 0, 0),
-        //     mesh: '1' 
-        // },
+        {
+            name: 'left',
+            position: new BABYLON.Vector3(0.5, 0, 0),
+            rotation: new BABYLON.Vector3(0, 0, 0),
+            camera: {
+                alpha: 0,
+                beta: Math.PI / 2,
+            },
+            mesh: '1',
+            isHMenu: true
+        },
     ],
 
     

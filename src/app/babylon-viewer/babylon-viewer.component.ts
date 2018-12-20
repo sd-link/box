@@ -43,7 +43,6 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
     private objects: WeaponCustomization[];
     private menuItems: CustomMenuSection[];
 
-    private menuScroll: any;
     private objectState: any;
 
     constructor(private viewerService: ViewerService, notifierService: NotifierService, customizerDataService: CustomizerDataService) {
@@ -77,10 +76,6 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
         customizerDataService.weaponsData().subscribe((customizationData) => {
             this.objects = customizationData.weapons;
             this.menuItems = customizationData.customSections;
-            this.menuScroll = {};
-            this.menuItems.forEach((menuItem) => {
-                this.menuScroll[menuItem.name] = 0;
-            });
 
         });
 
@@ -285,14 +280,24 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
 
     getObjectMenuVisibility(face) {
         let display = true;
-        const cameraAlpha = this.camera.alpha % (Math.PI * 2);
-        const cameraBeta = this.camera.beta % (Math.PI * 2);
-
-        if (Math.abs(cameraAlpha - face.camera.alpha) > Math.PI / 3.5 ||
-            Math.abs(cameraBeta - face.camera.beta) > Math.PI / 3.5) {
+        const cameraAlpha = this.getPositiveAngle(this.camera.alpha);
+        const cameraBeta = this.getPositiveAngle(this.camera.beta);
+        if (this.getDifferenceAngles(cameraAlpha, face.camera.alpha) > Math.PI / 3.5 ||
+            this.getDifferenceAngles(cameraBeta, face.camera.beta) > Math.PI / 3.5) {
             display = false;
         }        
         return display;
+    }
+    getPositiveAngle(angle) {
+        return (angle >= 0) ? angle % (Math.PI * 2) : Math.PI * 2 + angle % (Math.PI * 2);
+    }
+    getDifferenceAngles(angle1, angle2) {
+        const maxAngle = Math.max(angle1, angle2);
+        const minAngle = Math.min(angle1, angle2);
+        const diff1 = maxAngle - minAngle;
+        const diff2 = Math.PI * 2 - maxAngle + minAngle;
+        return Math.min(diff1, diff2);
+
     }
     getObjectPosition2d(face, w, h) {
         return BABYLON.Vector3.Project(new BABYLON.Vector3(face.position.x, face.position.y, face.position.z), BABYLON.Matrix.Identity(), this.scene.getTransformMatrix(), this.camera.viewport.toGlobal(this.engine, h));
