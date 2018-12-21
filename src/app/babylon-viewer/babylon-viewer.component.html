@@ -24,7 +24,8 @@
               <div *ngIf="menuItem.affectedParameter==='color'" class="menu-control">                  
                 <a class="menu-button-left" (click)="menuOptionScroll($event, menuItem.name, -1, menuItem.optionGroups[0].options)"><i class="material-icons md-inherit icon">arrow_left</i></a>
                 <div class="menu-scroll-wrapper">
-                  <div class="scroll-option" *ngFor="let option of menuItem.optionGroups[0].options" [ngStyle]="getColorOptionStyle(option)"></div>
+                  <div class="scroll-option" *ngFor="let option of menuItem.optionGroups[0].options" [ngStyle]="getColorOptionStyle(option)" 
+                  (click)="setMeshMaterialProperty(face.mesh, 'color', option.interactionValue)"></div>
                 </div>
                 <a class="menu-button-right" (click)="menuOptionScroll($event,menuItem.name, 1, menuItem.optionGroups[0].options)"><i class="material-icons md-inherit icon">arrow_right</i></a>
 
@@ -37,7 +38,10 @@
                 <div class="menu-control-sub">
                   <a class="menu-button-left" (click)="menuOptionScroll($event, menuItem.name, -1, menuItem.optionGroups[0].options)"><i class="material-icons md-inherit icon">arrow_left</i></a>
                   <div class="menu-scroll-wrapper">
-                    <img class="scroll-option" *ngFor="let option of menuItem.optionGroups[0].options" src="{{option.displayImg}}">
+                    
+                    <img class="scroll-option" *ngFor="let option of menuItem.optionGroups[0].options" src="{{option.displayImg}}"
+                    (click)="setMeshMaterialProperty(face.mesh, 'texture', option.interactionValue)">
+                    
 
                   </div>
                   <a class="menu-button-right" (click)="menuOptionScroll($event,menuItem.name, 1, menuItem.optionGroups[0].options)"><i class="material-icons md-inherit icon">arrow_right</i></a>                  

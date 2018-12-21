@@ -30,7 +30,7 @@ export const box: WeaponCustomization = {
                 alpha: Math.PI / 2,
                 beta: Math.PI / 2,
             },
-            mesh: '0',
+            mesh: 'f1',
             isHMenu: true
         },
         {
@@ -41,7 +41,7 @@ export const box: WeaponCustomization = {
                 alpha: 0,
                 beta: Math.PI / 2,
             },
-            mesh: '1',
+            mesh: 'f3',
             isHMenu: true
         },
     ],

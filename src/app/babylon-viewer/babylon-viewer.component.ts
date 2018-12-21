@@ -650,6 +650,7 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
     }
 
     setMeshMaterialProperty(meshName: string, propertyName: string, propertyValue: any) {
+        console.log(meshName, propertyName,propertyValue)
         const material = <BABYLON.PBRMaterial>this.getMesh(meshName).material;
 
         switch (propertyName) {
