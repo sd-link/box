@@ -44,6 +44,50 @@ export const box: WeaponCustomization = {
             mesh: 'f3',
             isHMenu: true
         },
+        {
+            name: 'right',
+            position: new BABYLON.Vector3(-0.5, 0, 0),
+            rotation: new BABYLON.Vector3(0, 0, 0),
+            camera: {
+                alpha: Math.PI,
+                beta: Math.PI / 2,
+            },
+            mesh: 'f6',
+            isHMenu: true
+        },
+        {
+            name: 'back',
+            position: new BABYLON.Vector3(0, 0, -0.5),
+            rotation: new BABYLON.Vector3(0, 0, 0),
+            camera: {
+                alpha: Math.PI * 3 / 2,
+                beta: Math.PI / 2,
+            },
+            mesh: 'f2',
+            isHMenu: true
+        },
+        {
+            name: 'top',
+            position: new BABYLON.Vector3(0.02, 0.5, 0),
+            rotation: new BABYLON.Vector3(0, 0, 0),
+            camera: {
+                alpha: 0,
+                beta: 0,
+            },
+            mesh: 'f4',
+            isHMenu: false
+        },
+        {
+            name: 'bottom',
+            position: new BABYLON.Vector3(0.02, -0.5, 0),
+            rotation: new BABYLON.Vector3(0, 0, 0),
+            camera: {
+                alpha: 0,
+                beta: Math.PI,
+            },
+            mesh: 'f5',
+            isHMenu: false
+        },
     ],
 
     

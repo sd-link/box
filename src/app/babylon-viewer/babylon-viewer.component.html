@@ -8,30 +8,32 @@
         </div>
         <div class="menu-layer"  [ngStyle]="getObjectMenuButtonStyle(face)">
           <div class="menu-caption">{{face.name}}</div>
-          <button class="menu-button">
+          <button class="menu-button" (click)="collapseCustomMenu(object, face.name)">
             <span>CUSTOM</span> 
             <i class="material-icons md-inherit icon">chevron_right</i>
           </button>
-          <div *ngIf="menuItems" class="menu-items-wrapper">
+          <div *ngIf="menuItems && menuState[object.name][face.name]['openMenu']" class="menu-items-wrapper">
             <div *ngFor="let menuItem of menuItems" class="menu-item">
               <div *ngIf="!menuItem.isText" class="menu-space-line"></div>
               <div *ngIf="menuItem.isText" class="menu-space-line-long"></div>
-              <div class="menu-option-button"></div>
+              <div class="menu-option-button" (click)="toggleOptionMenu(object.name,face.name,menuItem.name)">
+                <div *ngIf="menuState[object.name][face.name][menuItem.name]['openMenu']" class="option-dot"></div>
+              </div>
               <div class="menu-item-label">
                 {{menuItem.name}}
               </div>
               <!-- colors -->
-              <div *ngIf="menuItem.affectedParameter==='color'" class="menu-control">                  
+              <div *ngIf="menuItem.affectedParameter==='color'&&menuState[object.name][face.name][menuItem.name]['openMenu']" class="menu-control">                  
                 <a class="menu-button-left" (click)="menuOptionScroll($event, menuItem.name, -1, menuItem.optionGroups[0].options)"><i class="material-icons md-inherit icon">arrow_left</i></a>
                 <div class="menu-scroll-wrapper">
-                  <div class="scroll-option" *ngFor="let option of menuItem.optionGroups[0].options" [ngStyle]="getColorOptionStyle(option)" 
-                  (click)="setMeshMaterialProperty(face.mesh, 'color', option.interactionValue)"></div>
+                  <div class="scroll-option" *ngFor="let option of menuItem.optionGroups[0].options" [ngStyle]="getColorOptionStyle(object.name, face.name, menuItem.name, option)" 
+                  (click)="setMaterialFromMenu(object, face, menuItem, option)"></div>
                 </div>
                 <a class="menu-button-right" (click)="menuOptionScroll($event,menuItem.name, 1, menuItem.optionGroups[0].options)"><i class="material-icons md-inherit icon">arrow_right</i></a>
 
               </div>
               <!-- graphics -->
-              <div *ngIf="menuItem.affectedParameter==='texture' && !menuItem.isText" class="menu-control">  
+              <div *ngIf="menuItem.affectedParameter==='texture' && !menuItem.isText &&menuState[object.name][face.name][menuItem.name]['openMenu']" class="menu-control">  
                 <div class="menu-control-button">
                     <i class="material-icons md-inherit icon">add</i>
                 </div>   
@@ -39,8 +41,8 @@
                   <a class="menu-button-left" (click)="menuOptionScroll($event, menuItem.name, -1, menuItem.optionGroups[0].options)"><i class="material-icons md-inherit icon">arrow_left</i></a>
                   <div class="menu-scroll-wrapper">
                     
-                    <img class="scroll-option" *ngFor="let option of menuItem.optionGroups[0].options" src="{{option.displayImg}}"
-                    (click)="setMeshMaterialProperty(face.mesh, 'texture', option.interactionValue)">
+                    <img class="scroll-option" *ngFor="let option of menuItem.optionGroups[0].options" src="{{option.displayImg}}" [ngStyle]="getImageOptionStyle(object.name, face.name, menuItem.name, option)"
+                    (click)="setMaterialFromMenu(object, face, menuItem, option)">
                     
 
                   </div>
@@ -49,11 +51,11 @@
               </div>
 
               <!-- text -->
-              <div *ngIf="menuItem.isText" class="menu-control">  
-                <input class="option-text-input">
+              <div *ngIf="menuItem.isText&&menuState[object.name][face.name][menuItem.name]['openMenu']" class="menu-control">  
+                <input maxlength="10" class="option-text-input" (keyup)="onKeyTextInput($event)">
                 <div class="vertical-sep-line"></div>
-                <div class="option-text-length">10</div>
-                <a class="option-text-confirm-button">OK</a>
+                <div class="option-text-length">0</div>
+                <a class="option-text-confirm-button" (click)="setTextMaterial($event, object, face, menuItem, option)">OK</a>
                 <a class="option-text-up-button"><i class="material-icons md-inherit icon">arrow_drop_up</i></a>
                 <a class="option-text-down-button"><i class="material-icons md-inherit icon">arrow_drop_down</i></a>
               </div>

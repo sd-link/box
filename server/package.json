@@ -18,15 +18,5 @@
     "setup-tunnel":"lt -p 3000",
     "start": "node server.js",
     "debug": "nodemon --inspect server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SymboInteractive/gun-customizer.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/SymboInteractive/gun-customizer/issues"
-  },
-  "homepage": "https://github.com/SymboInteractive/gun-customizer#readme"
+  }
 }

@@ -302,76 +302,7 @@ export class CustomizerDataService {
                                     displayImg: 'assets/img/patterns/triangle.png',
                                     interactionValue: 'assets/img/patterns/triangle.png'
                                 },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
-                                {
-                                    name: 'triangle',
-                                    displayImg: 'assets/img/patterns/triangle.png',
-                                    interactionValue: 'assets/img/patterns/triangle.png'
-                                },
+
                             ]
                         }
                     ]

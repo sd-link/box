@@ -6,6 +6,7 @@ import {MaterialProperties, PreviewOptions, Value3D, CustomMenuSection, WeaponCu
 
 import {NotifierService} from '../notifier.service';
 import {Subscription} from 'rxjs';
+import { findLast } from '@angular/compiler/src/directive_resolver';
 
 declare var $;
 @Component({
@@ -29,7 +30,7 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
     private knownHeight = 0;
     private aspectRatio = 0;
     private loadingCount = 0;
-    private activeRoot: BABYLON.Mesh = null;
+    activeRoot: BABYLON.Mesh = null;
     private allAssetContainers: Map<string, BABYLON.AssetContainer> = new Map<string, BABYLON.AssetContainer>();
     private allRootMeshes: Map<string, BABYLON.Mesh> = new Map<string, BABYLON.Mesh>();
     private environment: BABYLON.BaseTexture = null;
@@ -40,8 +41,9 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
     private resetSubscription: Subscription;
     private objectUnderCursor: BABYLON.AbstractMesh;
     private previousObjectUnderCursor: BABYLON.AbstractMesh;
-    private objects: WeaponCustomization[];
+    objects: WeaponCustomization[];
     private menuItems: CustomMenuSection[];
+    private menuState: any;
 
     private objectState: any;
 
@@ -76,6 +78,20 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
         customizerDataService.weaponsData().subscribe((customizationData) => {
             this.objects = customizationData.weapons;
             this.menuItems = customizationData.customSections;
+            this.menuState = {};
+            this.objects.forEach((object) => {
+                this.menuState[object.name] = {};
+                object.faces.forEach((face) => {
+                    this.menuState[object.name][face.name] = {};
+                    this.menuState[object.name][face.name]['openMenu'] = false;
+                    
+                    this.menuItems.forEach((menuItem) => {
+                        this.menuState[object.name][face.name][menuItem.name] = {};
+                        this.menuState[object.name][face.name][menuItem.name]['openMenu'] = false;
+                        this.menuState[object.name][face.name][menuItem.name]['value'] = null;
+                    })
+                })
+            })
 
         });
 
@@ -282,10 +298,11 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
         let display = true;
         const cameraAlpha = this.getPositiveAngle(this.camera.alpha);
         const cameraBeta = this.getPositiveAngle(this.camera.beta);
-        if (this.getDifferenceAngles(cameraAlpha, face.camera.alpha) > Math.PI / 3.5 ||
-            this.getDifferenceAngles(cameraBeta, face.camera.beta) > Math.PI / 3.5) {
+        if ((face.camera.beta % Math.PI > 0.01 && this.getDifferenceAngles(cameraAlpha, face.camera.alpha) > Math.PI / 2.5) ||
+            this.getDifferenceAngles(cameraBeta, face.camera.beta) > Math.PI / 2.5) {
             display = false;
-        }        
+        } 
+        
         return display;
     }
     getPositiveAngle(angle) {
@@ -306,7 +323,16 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
         const w = this.renderCanvas.nativeElement.width;
         const h = this.renderCanvas.nativeElement.height;
         const p2d = this.getObjectPosition2d(face, w, h);
-        return (p2d.x > w / 2)? 'menu-right':'menu-left'
+ 
+
+        if (face.isHMenu) {
+ 
+            return p2d.x > w / 2 ? 'menu-right':'menu-left'
+        } else {
+            return p2d.y > h / 2 ? 'menu-bottom':'menu-top'
+        }
+
+        
     }
     getObjectMenuArrowStyle(face) {
         const w = this.renderCanvas.nativeElement.width;
@@ -325,13 +351,27 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
                 aw = p2d.x - w / 4;
                 left = p2d.x - aw;
             }
+            if (aw < 0) {
+                left += aw;
+                aw = -aw;
+            }
+        } else {
+            aw = 1;
+            left = p2d.x;
+            if (p2d.y > h / 2) {
+                ah = h / 8;
+                top = p2d.y - ah + 50;
+            } else {
+                ah = h / 8;
+                top = p2d.y + 50;
+            }
         }
         return {
             'left': left + 'px',
             'top': top + 'px',
             'display': this.getObjectMenuVisibility(face)?'':'none',
             'width': aw + 'px',
-            'height': ah + 'px'
+            'height': ah + 'px',
         };
     }
 
@@ -410,6 +450,9 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
                     left -= 50;
                 }
             }
+        } else {
+            left = p2d.x;
+            top = (p2d.y > h/2 ? p2d.y - h / 8 - 11: p2d.y + h / 8 + 10) + 50 ;
         }
 
         return {
@@ -436,10 +479,37 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
         }
     }
 
-    getColorOptionStyle (option) {
+    getColorOptionStyle (objectName, faceName, menuItemName, option) {
+        
         return {
-            'background-color': option.displayColor
+            'background-color': option.displayColor,
+            'border-width': (this.menuState[objectName][faceName][menuItemName]['value']===option.name) ? '2px':'0.5px'
         }
+    }
+    getImageOptionStyle (objectName, faceName, menuItemName, option) {
+        return {
+            'border-width': (this.menuState[objectName][faceName][menuItemName]['value']===option.name) ? '2px':'0.5px'
+        }
+    }
+
+    setMaterialFromMenu(object, face, menuItem, option) {
+        this.menuState[object.name][face.name][menuItem.name]['value'] = option.name;
+        if (menuItem.affectedParameter==='color') {
+            this.setMeshMaterialProperty(face.mesh, 'color', option.interactionValue);
+        } else {
+            this.setMeshMaterialProperty(face.mesh, 'texture', option.interactionValue);
+        }
+    }
+    setTextMaterial(event, object, face, menuItem, option) {
+        const text = $(event.target).parent().find('.option-text-input').val();
+        this.menuState[object.name][face.name][menuItem.name]['value'] = text;
+        this.setMeshMaterialProperty(face.mesh, 'font', text);
+    }
+
+    collapseCustomMenu(object, faceName) {
+        object.faces.forEach((face)=>{
+            this.menuState[object.name][face.name]['openMenu'] = (face.name === faceName) ? !this.menuState[object.name][face.name]['openMenu'] : false;
+        });
     }
 
     getGraphicOptionStyle (option) {
@@ -467,6 +537,17 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
             el.scrollTop(shift);
         }
         console.log(el.scrollTop(), shift)
+    }
+
+    onKeyTextInput(event) {
+        const len = $(event.target).val().length;
+        $(event.target.parentElement).find('.option-text-length').text(len);
+    }
+
+    toggleOptionMenu (objectName, faceName, currentMenuItemName) {
+        this.menuItems.forEach(menuItem => {
+            this.menuState[objectName][faceName][menuItem.name]['openMenu'] = (menuItem.name === currentMenuItemName) ? !this.menuState[objectName][faceName][menuItem.name]['openMenu'] : false
+        });
     }
 
     ngOnDestroy() {
@@ -526,9 +607,9 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
     }
     
     setFace(object, face) {
-        var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.2}, this.scene); //default sphere
+        var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.05}, this.scene); //default sphere
         sphere.position = new BABYLON.Vector3(face.position.x, face.position.y, face.position.z)
-        console.log(face)
+        // console.log(face)
         // this.menuLayer.nativeElement.append
     }
 
@@ -660,17 +741,23 @@ export class BabylonViewerComponent implements AfterContentInit, OnDestroy {
             case 'texture':
                 material.albedoTexture = (propertyValue instanceof BABYLON.Texture) ? propertyValue : this.texture(propertyValue);
                 break;
-        }
+            case 'font':
+                const textureText = new BABYLON.DynamicTexture(`dynamicTexture${meshName}`, {width:512, height:512}, this.scene, true);
+                const font = "bold 65px monospace";
+                textureText.drawText(propertyValue, null, null, font, "black", "white", false, true);
+                material.albedoTexture = textureText;
+          }
     }
 
     setupCamera() {
-        this.camera = new BABYLON.ArcRotateCamera('mainCam', Math.PI / 2, Math.PI / 2, 2,
+        this.camera = new BABYLON.ArcRotateCamera('mainCam', Math.PI / 4, Math.PI / 4, 3,
             new BABYLON.Vector3(0, 0, 0), this.scene, true);
         this.camera.useFramingBehavior = true;
         this.camera.wheelPrecision = 500;
         this.camera.pinchPrecision = 200;
-        this.camera.minZ = 0.01;
-        this.camera.lowerRadiusLimit = 0.01;
+        // this.camera.minZ = 0.01;
+
+        this.camera.lowerRadiusLimit = 2;
         this.camera.upperRadiusLimit = 5;
         this.camera.attachControl(this.displayCanvas);
     }

@@ -98,3 +98,7 @@
 .arrow-controls .disabled {
     color: darkgray;
 }
+
+.container-fluid {
+    display: none;
+}
